@@ -9,12 +9,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using ToDoList.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace ToDoList
 {
     public class Startup
     {
-        public IConfiguretionRoot Configuration { get; set; }
+        public IConfigurationRoot Configuration { get; set; }
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -31,7 +32,7 @@ namespace ToDoList
             //1
             services.AddMvc();
             services.AddEntityFrameworkMySql()
-                    .AddDbContext<ToDoList>(options =>
+                    .AddDbContext<ToDoListContext>(options =>
                                             options
                                             .UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
         }
